@@ -14,9 +14,9 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.0.1
+##   version - 0.1.0
 ##   created - 2026-03-22
-##   modified - 2026-03-22
+##   modified - 2026-03-28
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
 ##   depends - awk, echo, iconv, printf, rm, sort
@@ -39,10 +39,10 @@
 # Macro
 # =====
 
-TERFARVI = 0.0.1
+TERFARVI = 0.1.0
 VASRU = selzbasu
 GIMTERGAHI = $(VASRU)/gimgafi.tsv
-ROLSINXA = at bs
+ROLSINXA = at bs noda
 GIMVEI = $(ROLSINXA:%=-%-gismu.txt)
 MKDIR = mkdir -p -- '$(@D)'
 SET = set -efu -o pipefail
