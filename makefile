@@ -52,6 +52,10 @@ BREDI = \
 		*'-at-'*) export SINXA='@';; \
 		*'-bs-'*) export SINXA='\';; \
 	esac;
+ANTHY = $(GIMVEI:%=$(VASRU)/anthy%)
+GBOARD = $(GIMVEI:%=$(VASRU)/gboard%)
+MOZC = $(GIMVEI:%=$(VASRU)/mozc%)
+MSIME = $(GIMVEI:%=$(VASRU)/msime%)
 
 # zbasu
 # =====
@@ -61,7 +65,7 @@ ro: anthy gboard mozc msime
 # Anthy
 # -----
 
-anthy: $(GIMVEI:%=$(VASRU)/anthy%)
+anthy: $(ANTHY)
 
 $(GIMVEI:%=$(VASRU)/anthy%): $(GIMTERGAHI)
 	$(BREDI) awk -F '\t' -- '{ printf("%s \043T35*500 %s\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
@@ -69,15 +73,15 @@ $(GIMVEI:%=$(VASRU)/anthy%): $(GIMTERGAHI)
 # Gboard
 # ------
 
-gboard: $(GIMVEI:%=$(VASRU)/gboard%)
+gboard: $(GBOARD)
 
 $(GIMVEI:%=$(VASRU)/gboard%): $(GIMTERGAHI)
-	$(BREDI) awk -F '\t' -- 'BEGIN { print("\# Gboard Dictionary version:2"); print("\# Gboard Dictionary format:shortcut	word	language_tag	pos_tag"); } { printf("%s\t%s\tja-JP\t\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
+	$(BREDI) awk -F '\t' -- 'BEGIN { print("# Gboard Dictionary version:2"); print("# Gboard Dictionary format:shortcut	word	language_tag	pos_tag"); } { printf("%s\t%s\tja-JP\t\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
 
 # Mozc
 # ----
 
-mozc: $(GIMVEI:%=$(VASRU)/mozc%)
+mozc: $(MOZC)
 
 $(GIMVEI:%=$(VASRU)/mozc%): $(GIMTERGAHI)
 	$(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' >'$(@)'
@@ -85,7 +89,7 @@ $(GIMVEI:%=$(VASRU)/mozc%): $(GIMTERGAHI)
 # Microsoft IME
 # -------------
 
-msime: $(GIMVEI:%=$(VASRU)/msime%)
+msime: $(MSIME)
 
 $(GIMVEI:%=$(VASRU)/msime%): $(GIMTERGAHI)
 	$(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\r\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' | { printf '\377\376' && iconv -f UTF-8 -t UTF-16LE; } >'$(@)'
@@ -100,7 +104,7 @@ $(GIMTERGAHI): gismu.tsv
 # =====
 
 vimcu:
-	rm -f -- $(GIMVEI:%='$(VASRU)/anthy%') $(GIMVEI:%='$(VASRU)/gboard%') $(GIMVEI:%='$(VASRU)/mozc%') $(GIMVEI:%='$(VASRU)/msime%') '$(GIMTERGAHI)'
+	rm -f -- $(ANTHY:%='%') $(GBOARD:%='%') $(MOZC:%='%') $(MSIME:%='%') '$(GIMTERGAHI)'
 
 zahurehu: vimcu
 	$(MAKE)
