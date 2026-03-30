@@ -42,7 +42,7 @@
 TERFARVI = 0.1.0
 VASRU = selzbasu
 GIMTERGAHI = $(VASRU)/gimgafi.tsv
-ROLSINXA = at bs noda
+ROLSINXA = at bs ziho
 GIMVEI = $(ROLSINXA:%=-%-gismu.txt)
 MKDIR = mkdir -p -- '$(@D)'
 SET = set -efu -o pipefail
