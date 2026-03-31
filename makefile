@@ -14,9 +14,9 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.1.0
+##   version - 0.2.0
 ##   created - 2026-03-22
-##   modified - 2026-03-28
+##   modified - 2026-03-31
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
 ##   depends - awk, echo, iconv, printf, rm, sort
@@ -39,7 +39,7 @@
 # Macro
 # =====
 
-TERFARVI = 0.1.0
+TERFARVI = 0.2.0
 VASRU = selzbasu
 GIMTERGAHI = $(VASRU)/gimgafi.tsv
 ROLSINXA = at bs ziho
@@ -99,6 +99,12 @@ $(GIMVEI:%=$(VASRU)/msime%): $(GIMTERGAHI)
 
 $(GIMTERGAHI): gismu.tsv
 	$(BREDI) awk -F '\t' -- '{ terkancu = split($$3, kana, ","); for(xi = 1; xi <= terkancu; xi++) { printf("%s\t%s\t%s\n", kana[xi], $$1, $$2); }; }' '$(<)' | LANG=C sort -o '$(@)'
+
+# drata
+# -----
+
+LICENSE.txt:
+	curl -sSfLo '$(@)' -- 'https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt'
 
 # vimcu
 # =====
