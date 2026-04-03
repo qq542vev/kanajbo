@@ -14,7 +14,7 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.3.0
+##   version - 0.3.1
 ##   created - 2026-03-22
 ##   modified - 2026-04-03
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
@@ -32,7 +32,7 @@
 
 .POSIX:
 
-.PHONY: ro anthy gboard mozc msime vimcu zahurehu jarco mipri sidju velfarvi
+.PHONY: ro anthy gboard mozc msime vimcu zahurehu gubni mipri sidju velfarvi
 
 .SILENT: sidju velfarvi
 
@@ -115,10 +115,10 @@ vimcu:
 zahurehu: vimcu
 	$(MAKE)
 
-# jarco
+# gubni
 # =====
 
-jarco: ro
+gubni: ro
 	glab release create '$(NAMCU)' --name ".i li $(NAMCU) velfarvi sinxa" --notes "$$(git tag -l '$(NAMCU)' --format='%(contents)')" --no-update --use-package-registry $$(find "$(VASRU)" -name '*.txt' -type f | LANG=C sort)
 
 mipri:
@@ -143,10 +143,10 @@ sidju:
 	echo "  msime    zbasu lo se pilno be la'o zoi Microsoft IME zoi"
 	echo "  vimcu    vimcu lo se zbasu"
 	echo "  zahurehu za'u re'u zbasu"
-	echo "  jarco    jarco tu'a lo se zbasu"
-	echo "  mipri    mipri tu'a lo se zbasu"
-	echo "  sidju    jarco lo ti sidju notci"
-	echo "  velfarvi jarco lo ve farvi datni"
+	echo "  gubni    lo se zbasu cu co'a gubni"
+	echo "  mipri    mipri lo gubni"
+	echo "  sidju    jarco tu'a lo ti sidju notci"
+	echo "  velfarvi jarco tu'a lo ve farvi datni"
 
 velfarvi:
 	echo '$(NAMCU)'
