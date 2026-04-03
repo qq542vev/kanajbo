@@ -6,7 +6,7 @@ Metadata:
 
   id - 97e5db3d-c6c9-4ef0-82fe-03cf61b6446e
   author - <qq542vev at https://purl.org/meta/me/>
-  version - 0.1.1
+  version - 0.1.2
   created - 2026-03-31
   modified - 2026-04-02
   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
@@ -60,7 +60,7 @@ See Also:
 
 ## ライセンス
 
-生成された辞書ファイルは**CC0 1.0 Universal（パブリックドメイン）**の下で提供されています。詳細は[LICENSE.txt](LICENSE.txt)を参照してください。
+生成された辞書ファイルは**CC0 1.0 Universal**の下で提供されています。詳細は[LICENSE.txt](LICENSE.txt)を参照してください。
 
 ## 謝辞
 
