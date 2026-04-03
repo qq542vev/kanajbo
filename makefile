@@ -14,12 +14,12 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.2.0
+##   version - 0.3.0
 ##   created - 2026-03-22
-##   modified - 2026-03-31
+##   modified - 2026-04-03
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
-##   depends - awk, echo, iconv, printf, rm, sort
+##   depends - awk, echo, find, git, glab, iconv, printf, rm, sort
 ##   conforms-to - <https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html>
 ##
 ## See Also:
@@ -32,14 +32,14 @@
 
 .POSIX:
 
-.PHONY: ro anthy gboard mozc msime vimcu zahurehu sidju terfarvi
+.PHONY: ro anthy gboard mozc msime vimcu zahurehu jarco mipri sidju velfarvi
 
-.SILENT: sidju terfarvi
+.SILENT: sidju velfarvi
 
 # Macro
 # =====
 
-TERFARVI = 0.2.0
+NAMCU = 1.0.0
 VASRU = selzbasu
 GIMTERGAHI = $(VASRU)/gimgafi.tsv
 ROLSINXA = at bs ziho
@@ -115,6 +115,17 @@ vimcu:
 zahurehu: vimcu
 	$(MAKE)
 
+# jarco
+# =====
+
+jarco: ro
+	glab release create '$(NAMCU)' --name ".i li $(NAMCU) velfarvi sinxa" --notes "$$(git tag -l '$(NAMCU)' --format='%(contents)')" --no-update --use-package-registry $$(find "$(VASRU)" -name '*.txt' -type f | LANG=C sort)
+
+mipri:
+	if glab release view '$(NAMCU)' >/dev/null 2>&1; then \
+		glab release delete '$(NAMCU)' -y; \
+	fi
+
 # notci
 # =====
 
@@ -132,8 +143,10 @@ sidju:
 	echo "  msime    zbasu lo se pilno be la'o zoi Microsoft IME zoi"
 	echo "  vimcu    vimcu lo se zbasu"
 	echo "  zahurehu za'u re'u zbasu"
+	echo "  jarco    jarco tu'a lo se zbasu"
+	echo "  mipri    mipri tu'a lo se zbasu"
 	echo "  sidju    jarco lo ti sidju notci"
-	echo "  terfarvi jarco lo te farvi datni"
+	echo "  velfarvi jarco lo ve farvi datni"
 
-terfarvi:
-	echo '$(TERFARVI)'
+velfarvi:
+	echo '$(NAMCU)'
