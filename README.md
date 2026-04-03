@@ -15,7 +15,7 @@ Metadata:
 See Also:
 
   * <Project homepage at https://github.com/qq542vev/kanajbo>
-  * <Bag report at https://github.com/qq542vev/kanajbo/issues>
+  * <Bug report at https://github.com/qq542vev/kanajbo/issues>
 -->
 
 # ロジバンIME辞書
