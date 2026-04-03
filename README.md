@@ -6,7 +6,7 @@ Metadata:
 
   id - 97e5db3d-c6c9-4ef0-82fe-03cf61b6446e
   author - <qq542vev at https://purl.org/meta/me/>
-  version - 0.1.2
+  version - 0.1.3
   created - 2026-03-31
   modified - 2026-04-02
   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
@@ -48,15 +48,15 @@ See Also:
 
 このプロジェクトでは、以下の3種類の辞書を提供します。
 
- * `\*-at-\*.txt`:
+ * `*-at-*.txt`:
    * トリガー文字として`@`を使用します。
-   * 例: `@たべる` → `citka`
- * `\*-bs-\*.txt`:
+   * 例: `@たべる → citka`
+ * `*-bs-*.txt`:
    * トリガー文字として`\`を使用します。
-   * 例: `\たべる` → `citka`
- * `\*-ziho-\*.txt`:
+   * 例: `\たべる → citka`
+ * `*-ziho-*.txt`:
    * トリガー文字を使用しません。
-   * 例: `たべる` → `citka`
+   * 例: `たべる → citka`
 
 ## ライセンス
 
