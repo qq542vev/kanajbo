@@ -25,7 +25,7 @@
 ## See Also:
 ##
 ##   * <Project homepage at https://github.com/qq542vev/kanajbo>
-##   * <Bag report at https://github.com/qq542vev/kanajbo/issues>
+##   * <Bug report at https://github.com/qq542vev/kanajbo/issues>
 
 # Sp Targets
 # ==========
@@ -41,9 +41,17 @@
 
 NAMCU = 1.0.0
 VASRU = selzbasu
+
+# cmene morna
+# -----------
+
 GIMTERGAHI = $(VASRU)/gimgafi.tsv
 ROLSINXA = at bs ziho
 GIMVEI = $(ROLSINXA:%=-%-gismu.txt)
+
+# minde
+# -----
+
 MKDIR = mkdir -p -- '$(@D)'
 SET = set -efu -o pipefail
 BREDI = \
@@ -52,10 +60,30 @@ BREDI = \
 		*'-at-'*) export SINXA='@';; \
 		*'-bs-'*) export SINXA='\';; \
 	esac;
-ANTHY = $(GIMVEI:%=$(VASRU)/anthy%)
-GBOARD = $(GIMVEI:%=$(VASRU)/gboard%)
-MOZC = $(GIMVEI:%=$(VASRU)/mozc%)
-MSIME = $(GIMVEI:%=$(VASRU)/msime%)
+
+# Anthy
+# -----
+
+ANTHY_LISTE = $(GIMVEI:%=$(VASRU)/anthy%)
+ANTHY_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s \#T35*500 %s\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
+
+# Gboard
+# ------
+
+GBOARD_LISTE = $(GIMVEI:%=$(VASRU)/gboard%)
+GBOARD_ZBASU = $(BREDI) awk -F '\t' -- 'BEGIN { print("\# Gboard Dictionary version:2"); print("\# Gboard Dictionary format:shortcut	word	language_tag	pos_tag"); } { printf("%s\t%s\tja-JP\t\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
+
+# Mozc
+# ----
+
+MOZC_LISTE = $(GIMVEI:%=$(VASRU)/mozc%)
+MOZV_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' >'$(@)'
+
+# Microsoft IME
+# -------------
+
+MSIME_LISTE = $(GIMVEI:%=$(VASRU)/msime%)
+MSIME_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\r\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' | { printf '\377\376' && iconv -f UTF-8 -t UTF-16LE; } >'$(@)'
 
 # zbasu
 # =====
@@ -65,34 +93,34 @@ ro: anthy gboard mozc msime
 # Anthy
 # -----
 
-anthy: $(ANTHY)
+anthy: $(ANTHY_LISTE)
 
 $(GIMVEI:%=$(VASRU)/anthy%): $(GIMTERGAHI)
-	$(BREDI) awk -F '\t' -- '{ printf("%s \043T35*500 %s\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
+	$(ANTHY_ZBASU)
 
 # Gboard
 # ------
 
-gboard: $(GBOARD)
+gboard: $(GBOARD_LISTE)
 
 $(GIMVEI:%=$(VASRU)/gboard%): $(GIMTERGAHI)
-	$(BREDI) awk -F '\t' -- 'BEGIN { print("# Gboard Dictionary version:2"); print("# Gboard Dictionary format:shortcut	word	language_tag	pos_tag"); } { printf("%s\t%s\tja-JP\t\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
+	$(GBOARD_ZBASU)
 
 # Mozc
 # ----
 
-mozc: $(MOZC)
+mozc: $(MOZC_LISTE)
 
 $(GIMVEI:%=$(VASRU)/mozc%): $(GIMTERGAHI)
-	$(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' >'$(@)'
+	$(MOZC_ZBASU)
 
 # Microsoft IME
 # -------------
 
-msime: $(MSIME)
+msime: $(MSIME_LISTE)
 
 $(GIMVEI:%=$(VASRU)/msime%): $(GIMTERGAHI)
-	$(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\r\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' | { printf '\377\376' && iconv -f UTF-8 -t UTF-16LE; } >'$(@)'
+	$(MSIME_ZBASU)
 
 # zbepi
 # ------
