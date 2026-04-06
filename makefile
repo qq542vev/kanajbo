@@ -14,9 +14,9 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.3.1
+##   version - 0.4.0
 ##   created - 2026-03-22
-##   modified - 2026-04-03
+##   modified - 2026-04-07
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
 ##   depends - awk, echo, find, git, glab, iconv, printf, rm, sort
@@ -40,14 +40,17 @@
 # =====
 
 NAMCU = 1.0.0
-VASRU = selzbasu
+SELPRUCE = selpruce
+TERPRICE = terpruce
 
 # cmene morna
 # -----------
 
-GIMTERGAHI = $(VASRU)/gimgafi.tsv
+GIMTERGAHI = $(SELPRUCE)/gimgafi.tsv
+MAHOTERGAHI = $(SELPRUCE)/mahogafi.tsv
 ROLSINXA = at bs ziho
 GIMVEI = $(ROLSINXA:%=-%-gismu.txt)
+MAHOVEI = $(ROLSINXA:%=-%-cmavo.txt)
 
 # minde
 # -----
@@ -64,26 +67,31 @@ BREDI = \
 # Anthy
 # -----
 
-ANTHY_LISTE = $(GIMVEI:%=$(VASRU)/anthy%)
+ANTHY_LISTE = $(GIMVEI:%=$(SELPRUCE)/anthy%) $(MAHOVEI:%=$(SELPRUCE)/anthy%)
 ANTHY_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s \#T35*500 %s\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
 
 # Gboard
 # ------
 
-GBOARD_LISTE = $(GIMVEI:%=$(VASRU)/gboard%)
+GBOARD_LISTE = $(GIMVEI:%=$(SELPRUCE)/gboard%) $(MAHOVEI:%=$(SELPRUCE)/gboard%)
 GBOARD_ZBASU = $(BREDI) awk -F '\t' -- 'BEGIN { print("\# Gboard Dictionary version:2"); print("\# Gboard Dictionary format:shortcut	word	language_tag	pos_tag"); } { printf("%s\t%s\tja-JP\t\n", ENVIRON["SINXA"] $$1, $$2); }' '$(<)' >'$(@)'
 
 # Mozc
 # ----
 
-MOZC_LISTE = $(GIMVEI:%=$(VASRU)/mozc%)
+MOZC_LISTE = $(GIMVEI:%=$(SELPRUCE)/mozc%) $(MAHOVEI:%=$(SELPRUCE)/mozc%)
 MOZV_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' >'$(@)'
 
 # Microsoft IME
 # -------------
 
-MSIME_LISTE = $(GIMVEI:%=$(VASRU)/msime%)
+MSIME_LISTE = $(GIMVEI:%=$(SELPRUCE)/msime%) $(MAHOVEI:%=$(SELPRUCE)/msime%)
 MSIME_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\r\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' | { printf '\377\376' && iconv -f UTF-8 -t UTF-16LE; } >'$(@)'
+
+# zbepi
+# -----
+
+ZBEPI_ZBASU = $(BREDI) awk -F '\t' -- '{ terkancu = split($$3, kana, ","); for(xi = 1; xi <= terkancu; xi++) { printf("%s\t%s\t%s\n", kana[xi], $$1, $$2); }; }' '$(<)' | LANG=C sort -o '$(@)'
 
 # zbasu
 # =====
@@ -95,7 +103,10 @@ ro: anthy gboard mozc msime
 
 anthy: $(ANTHY_LISTE)
 
-$(GIMVEI:%=$(VASRU)/anthy%): $(GIMTERGAHI)
+$(GIMVEI:%=$(SELPRUCE)/anthy%): $(GIMTERGAHI)
+	$(ANTHY_ZBASU)
+
+$(MAHOVEI:%=$(SELPRUCE)/anthy%): $(MAHOTERGAHI)
 	$(ANTHY_ZBASU)
 
 # Gboard
@@ -103,7 +114,10 @@ $(GIMVEI:%=$(VASRU)/anthy%): $(GIMTERGAHI)
 
 gboard: $(GBOARD_LISTE)
 
-$(GIMVEI:%=$(VASRU)/gboard%): $(GIMTERGAHI)
+$(GIMVEI:%=$(SELPRUCE)/gboard%): $(GIMTERGAHI)
+	$(GBOARD_ZBASU)
+
+$(MAHOVEI:%=$(SELPRUCE)/gboard%): $(MAHOTERGAHI)
 	$(GBOARD_ZBASU)
 
 # Mozc
@@ -111,7 +125,10 @@ $(GIMVEI:%=$(VASRU)/gboard%): $(GIMTERGAHI)
 
 mozc: $(MOZC_LISTE)
 
-$(GIMVEI:%=$(VASRU)/mozc%): $(GIMTERGAHI)
+$(GIMVEI:%=$(SELPRUCE)/mozc%): $(GIMTERGAHI)
+	$(MOZC_ZBASU)
+
+$(MAHOVEI:%=$(SELPRUCE)/mozc%): $(MAHOTERGAHI)
 	$(MOZC_ZBASU)
 
 # Microsoft IME
@@ -119,14 +136,20 @@ $(GIMVEI:%=$(VASRU)/mozc%): $(GIMTERGAHI)
 
 msime: $(MSIME_LISTE)
 
-$(GIMVEI:%=$(VASRU)/msime%): $(GIMTERGAHI)
+$(GIMVEI:%=$(SELPRUCE)/msime%): $(GIMTERGAHI)
+	$(MSIME_ZBASU)
+
+$(MAHOVEI:%=$(SELPRUCE)/msime%): $(MAHOTERGAHI)
 	$(MSIME_ZBASU)
 
 # zbepi
 # ------
 
-$(GIMTERGAHI): gismu.tsv
-	$(BREDI) awk -F '\t' -- '{ terkancu = split($$3, kana, ","); for(xi = 1; xi <= terkancu; xi++) { printf("%s\t%s\t%s\n", kana[xi], $$1, $$2); }; }' '$(<)' | LANG=C sort -o '$(@)'
+$(GIMTERGAHI): $(TERPRICE)/gismu.tsv
+	$(ZBEPI_ZBASU)
+
+$(MAHOTERGAHI): $(TERPRICE)/cmavo.tsv
+	$(ZBEPI_ZBASU)
 
 # drata
 # -----
@@ -138,7 +161,7 @@ LICENSE.txt:
 # =====
 
 vimcu:
-	rm -f -- $(ANTHY:%='%') $(GBOARD:%='%') $(MOZC:%='%') $(MSIME:%='%') '$(GIMTERGAHI)'
+	rm -f -- $(ANTHY:%='%') $(GBOARD:%='%') $(MOZC:%='%') $(MSIME:%='%') '$(GIMTERGAHI)' '$(MAHOTERGAHI)'
 
 zahurehu: vimcu
 	$(MAKE)
@@ -147,7 +170,7 @@ zahurehu: vimcu
 # =====
 
 gubni: ro
-	glab release create '$(NAMCU)' --name ".i li $(NAMCU) velfarvi sinxa" --notes "$$(git tag -l '$(NAMCU)' --format='%(contents)')" --no-update --use-package-registry $$(find "$(VASRU)" -name '*.txt' -type f | LANG=C sort)
+	glab release create '$(NAMCU)' --name ".i li $(NAMCU) velfarvi sinxa" --notes "$$(git tag -l '$(NAMCU)' --format='%(contents)')" --no-update --use-package-registry $$(find "$(SELPRUCE)" -name '*.txt' -type f | LANG=C sort)
 
 mipri:
 	if glab release view '$(NAMCU)' >/dev/null 2>&1; then \
