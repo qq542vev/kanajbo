@@ -14,9 +14,9 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.4.0
+##   version - 0.4.1
 ##   created - 2026-03-22
-##   modified - 2026-04-07
+##   modified - 2026-04-08
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
 ##   depends - awk, echo, find, git, glab, iconv, printf, rm, sort
@@ -161,7 +161,7 @@ LICENSE.txt:
 # =====
 
 vimcu:
-	rm -f -- $(ANTHY:%='%') $(GBOARD:%='%') $(MOZC:%='%') $(MSIME:%='%') '$(GIMTERGAHI)' '$(MAHOTERGAHI)'
+	rm -f -- $(ANTHY_LISTE:%='%') $(GBOARD_LISTE:%='%') $(MOZC_LISTE:%='%') $(MSIME_LISTE:%='%') '$(GIMTERGAHI)' '$(MAHOTERGAHI)'
 
 zahurehu: vimcu
 	$(MAKE)
