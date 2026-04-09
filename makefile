@@ -16,10 +16,10 @@
 ##   author - <qq542vev at https://purl.org/meta/me/>
 ##   version - 0.4.1
 ##   created - 2026-03-22
-##   modified - 2026-04-08
+##   modified - 2026-04-09
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
-##   depends - awk, echo, find, git, glab, iconv, printf, rm, sort
+##   depends - awk, curl, echo, find, git, glab, iconv, printf, rm, sort
 ##   conforms-to - <https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html>
 ##
 ## See Also:
@@ -41,13 +41,13 @@
 
 NAMCU = 1.0.0
 SELPRUCE = selpruce
-TERPRICE = terpruce
+TERPRUCE = terpruce
 
 # cmene morna
 # -----------
 
-GIMTERGAHI = $(SELPRUCE)/gimgafi.tsv
-MAHOTERGAHI = $(SELPRUCE)/mahogafi.tsv
+GIMTERGAHI = $(SELPRUCE)/gimgahi.tsv
+MAHOTERGAHI = $(SELPRUCE)/mahogahi.tsv
 ROLSINXA = at bs ziho
 GIMVEI = $(ROLSINXA:%=-%-gismu.txt)
 MAHOVEI = $(ROLSINXA:%=-%-cmavo.txt)
@@ -62,6 +62,7 @@ BREDI = \
 	case '$(@F)' in \
 		*'-at-'*) export SINXA='@';; \
 		*'-bs-'*) export SINXA='\';; \
+		*'-ziho-'*) export SINXA='';; \
 	esac;
 
 # Anthy
@@ -80,7 +81,7 @@ GBOARD_ZBASU = $(BREDI) awk -F '\t' -- 'BEGIN { print("\# Gboard Dictionary vers
 # ----
 
 MOZC_LISTE = $(GIMVEI:%=$(SELPRUCE)/mozc%) $(MAHOVEI:%=$(SELPRUCE)/mozc%)
-MOZV_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' >'$(@)'
+MOZC_ZBASU = $(BREDI) awk -F '\t' -- '{ printf("%s\t%s\t固有名詞\t%s\n", ENVIRON["SINXA"] $$1, $$2, $$3); }' '$(<)' >'$(@)'
 
 # Microsoft IME
 # -------------
@@ -145,10 +146,10 @@ $(MAHOVEI:%=$(SELPRUCE)/msime%): $(MAHOTERGAHI)
 # zbepi
 # ------
 
-$(GIMTERGAHI): $(TERPRICE)/gismu.tsv
+$(GIMTERGAHI): $(TERPRUCE)/gismu.tsv
 	$(ZBEPI_ZBASU)
 
-$(MAHOTERGAHI): $(TERPRICE)/cmavo.tsv
+$(MAHOTERGAHI): $(TERPRUCE)/cmavo.tsv
 	$(ZBEPI_ZBASU)
 
 # drata
