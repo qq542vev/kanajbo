@@ -14,9 +14,9 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.4.1
+##   version - 0.5.0
 ##   created - 2026-03-22
-##   modified - 2026-04-09
+##   modified - 2026-04-10
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
 ##   depends - awk, curl, echo, find, git, glab, iconv, printf, rm, sort
@@ -32,7 +32,7 @@
 
 .POSIX:
 
-.PHONY: ro anthy gboard mozc msime vimcu zahurehu gubni mipri sidju velfarvi
+.PHONY: ro anthy gboard mozc msime cipra terpruce-cipra selpruce-cipra vimcu zahurehu gubni mipri sidju velfarvi
 
 .SILENT: sidju velfarvi
 
@@ -158,6 +158,17 @@ $(MAHOTERGAHI): $(TERPRUCE)/cmavo.tsv
 LICENSE.txt:
 	curl -sSfLo '$(@)' -- 'https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt'
 
+# cipra
+# =====
+
+cipra: terpruce-cipra selpruce-cipra
+
+terpruce-cipra:
+	VASRU='$(TERPRUCE)' shellspec spec/tsv-zei-cipra_spec.sh
+
+selpruce-cipra: ro
+	VASRU='$(SELPRUCE)' shellspec spec/selpruce
+
 # vimcu
 # =====
 
@@ -193,6 +204,11 @@ sidju:
 	echo "  gboard   zbasu lo se pilno be la'o zoi Gboard zoi"
 	echo "  mozc     zbasu lo se pilno be la'o zoi Mozc zoi"
 	echo "  msime    zbasu lo se pilno be la'o zoi Microsoft IME zoi"
+	echo "  cipra    ro da te cipra"
+	echo "  terpruce-cipra"
+	echo "           lo te pruce cu te cipra"
+	echo "  selpruce-cipra"
+	echo "           lo se pruce cu te cipra"
 	echo "  vimcu    vimcu lo se zbasu"
 	echo "  zahurehu za'u re'u zbasu"
 	echo "  gubni    lo se zbasu cu co'a gubni"
