@@ -14,9 +14,9 @@
 ##
 ##   id - f6c6ee41-4426-4e98-8cae-572de1d02812
 ##   author - <qq542vev at https://purl.org/meta/me/>
-##   version - 0.5.0
+##   version - 0.6.0
 ##   created - 2026-03-22
-##   modified - 2026-04-10
+##   modified - 2026-09-02
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
 ##   depends - awk, curl, echo, find, git, glab, iconv, printf, rm, sort
@@ -32,12 +32,14 @@
 
 .POSIX:
 
-.PHONY: ro anthy gboard mozc msime cipra terpruce-cipra selpruce-cipra vimcu zahurehu gubni mipri sidju velfarvi
+.PHONY: ro anthy gboard mozc msime cipra terpruce-cipra selpruce-cipra vimcu zahurehu gubni mipri liste sidju velfarvi
 
-.SILENT: sidju velfarvi
+.SILENT: liste sidju velfarvi
 
 # Macro
 # =====
+
+SHELL = sh
 
 NAMCU = 1.0.0
 SELPRUCE = selpruce
@@ -192,6 +194,9 @@ mipri:
 # notci
 # =====
 
+liste:
+	printf '%s\n' $(ANTHY_LISTE) $(GBOARD_LISTE) $(MOZC_LISTE) $(MSIME_LISTE)
+
 sidju:
 	echo "zbasu lo valsi liste be pi'o la'o zoi ponjo IME zoi"
 	echo
@@ -213,6 +218,7 @@ sidju:
 	echo "  zahurehu za'u re'u zbasu"
 	echo "  gubni    lo se zbasu cu co'a gubni"
 	echo "  mipri    mipri lo gubni"
+	echo "  liste    jarco tu'a lo selpruce liste"
 	echo "  sidju    jarco tu'a lo ti sidju notci"
 	echo "  velfarvi jarco tu'a lo ve farvi datni"
 
