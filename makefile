@@ -16,7 +16,7 @@
 ##   author - <qq542vev at https://purl.org/meta/me/>
 ##   version - 0.6.0
 ##   created - 2026-03-22
-##   modified - 2026-09-02
+##   modified - 2026-09-06
 ##   copyright - Copyright (C) 2026-2026 qq542vev. All rights reserved.
 ##   license - <GPL-3.0-only at https://www.gnu.org/licenses/gpl-3.0.txt>
 ##   depends - awk, curl, echo, find, git, glab, iconv, printf, rm, sort
@@ -41,7 +41,7 @@
 
 SHELL = sh
 
-NAMCU = 1.0.0
+NAMCU = 1.0.1
 SELPRUCE = selpruce
 TERPRUCE = terpruce
 
